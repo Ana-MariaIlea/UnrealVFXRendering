@@ -6,8 +6,9 @@
 // Sets default values
 AFramerateTrackerActor::AFramerateTrackerActor()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
 
 }
 
@@ -15,8 +16,15 @@ AFramerateTrackerActor::AFramerateTrackerActor()
 void AFramerateTrackerActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	index = 1;
+
+	if (FramerateDataTable->GetRowNames().Num() == 0) {
+		index = 1;
+	}
+	else
+		index = FramerateDataTable->GetRowNames().Num();
+
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
+
 }
 
 // Called every frame
@@ -28,7 +36,7 @@ void AFramerateTrackerActor::Tick(float DeltaTime)
 
 void AFramerateTrackerActor::TrackFramerate(FString loopBehavior, int numberOfSystems, float seconds, float framerate)
 {
-	if(FramerateDataTable){
+	if (FramerateDataTable) {
 
 		FFramerateTrackerStructure NewStructure;
 		NewStructure.LoopBehavior = loopBehavior;
@@ -37,6 +45,8 @@ void AFramerateTrackerActor::TrackFramerate(FString loopBehavior, int numberOfSy
 		NewStructure.Framerate = framerate;
 
 		FramerateDataTable->AddRow(FName(FString::Printf(TEXT("%d"), index)), NewStructure);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
+
 		index++;
 	}
 }
