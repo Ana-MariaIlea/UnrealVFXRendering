@@ -23,7 +23,7 @@ void AFramerateTrackerActor::BeginPlay()
 	else
 		index = FramerateDataTable->GetRowNames().Num();
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
 
 }
 
@@ -45,7 +45,7 @@ void AFramerateTrackerActor::TrackFramerate(FString loopBehavior, int numberOfSy
 		NewStructure.Framerate = framerate;
 
 		FramerateDataTable->AddRow(FName(FString::Printf(TEXT("%d"), index)), NewStructure);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Some variable values: x: %d"), index));
 
 		index++;
 	}
